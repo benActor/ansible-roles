@@ -1,0 +1,25 @@
+- name: Configure jenkins apt repository key
+  apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key state=present
+  become: yes
+
+- name: Configure Jenkins repository
+  apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+  become: yes
+
+- name: Install Jenkins 
+  apt: name=jenkins update_cache=yes
+  become: yes
+
+- name: Create custom directory
+  file: path="{{ JENKINS_CONFIG_DIR }}" state=directory
+  notify:
+    - Restart Jenkins service
+  become: yes
+
+- name: Setup custom configuration
+  template: src=config.j2 dest="{{ JENKINS_CONFIG_DIR }}/override.conf"
+  notify:
+    - Enable jenkins service
+  become: yes
+
+

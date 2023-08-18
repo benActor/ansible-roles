@@ -1,0 +1,5 @@
+---
+# handlers file for jenkins
+- name: Enable jenkins service
+  systemd: name=jenkins state=restarted enabled=yes daemon_reload=true
+  become: yes
