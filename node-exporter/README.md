@@ -1,22 +1,27 @@
 Role Name
 =========
 
-Install prometheus node exporter on linux host
+Install prometheus node exporter as a service on linux host
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Linux systems 
 
 Role Variables
 --------------
+configurable variables for the roles and default values
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+exporter_port: 9100   -> listening port 
+node_exporter_version: 1.1.2 -> exporter version to be installed
+node_exporter_user: node_exporter -> user running the service 
+node_exporter_group: node_exporter -> user's group
+service_directory: /etc/systemd/system -> service directory path
+exporter_extra_options: [] -> additional arguments for exporter execution.
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None 
 
 Example Playbook
 ----------------
@@ -25,7 +30,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: node-exporter, exporter_extra_options: ["--collection.systemd"] }
 
 License
 -------
