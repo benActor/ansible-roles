@@ -30,7 +30,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: node-exporter, exporter_extra_options: ["--collection.systemd"] }
+         - { role: node-exporter, exporter_extra_options: ["--collector.systemd"] }
 
 License
 -------
